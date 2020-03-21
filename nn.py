@@ -184,21 +184,22 @@ def spiralData(numSamples):
   genSpiral(math.pi, -1) #Negative examples.
   return points
 
-#main
-net=buildNetwork([2,6,1])
-points=spiralData(500)
-random.shuffle(points)
-m=0
-for n in range(3000):
-  loss=0
-  for point in points:
-    m+=1
-    [x,y,z]=point
-    zp=forwardProp(net,[x,y])
-    backProp(net,z)
-    loss += 0.5 * (zp - z)**2
-    if m%10 == 0:
-      updateWeights(net,0.1)
-  loss = loss/len(points)
-  print(n,loss)
-printSolution(net)
+def example():
+  net=buildNetwork([2,6,6,1])
+  points=spiralData(500)
+  random.shuffle(points)
+  m=0
+  for n in range(1000):
+    loss=0
+    for point in points:
+      m+=1
+      [x,y,z]=point
+      zp=forwardProp(net,[x,y])
+      backProp(net,z)
+      loss += 0.5 * (zp - z)**2
+      if m%10 == 0:
+        updateWeights(net,0.1)
+    loss = loss/len(points)
+    print(n,loss)
+  printSolution(net)
+  
